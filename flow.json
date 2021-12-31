@@ -1,0 +1,1041 @@
+[
+    {
+        "id": "fdea4f1a813872ee",
+        "type": "tab",
+        "label": "Controller",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "15bf21108b90dc98",
+        "type": "ui_tab",
+        "name": "PV Control",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "6f25cc7b53b9174f",
+        "type": "ui_group",
+        "name": "Charge Control",
+        "tab": "15bf21108b90dc98",
+        "order": 1,
+        "disp": true,
+        "width": "7",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f0f059977c7cb9eb",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "723de613faadf518",
+        "type": "ui_group",
+        "name": "SOC Control",
+        "tab": "15bf21108b90dc98",
+        "order": 2,
+        "disp": true,
+        "width": "7",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "6960b6aa5e80f3f4",
+        "type": "ui_slider",
+        "z": "fdea4f1a813872ee",
+        "name": "",
+        "label": "Min Charge",
+        "tooltip": "Minimum charge current required",
+        "group": "6f25cc7b53b9174f",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "passthru": true,
+        "outs": "end",
+        "topic": "I_min",
+        "topicType": "str",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "className": "",
+        "x": 790,
+        "y": 240,
+        "wires": [
+            [
+                "d79990882df7ee90"
+            ]
+        ]
+    },
+    {
+        "id": "35a782611b39f79a",
+        "type": "inject",
+        "z": "fdea4f1a813872ee",
+        "name": "load config",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "a286b9f0707a07f7"
+            ]
+        ]
+    },
+    {
+        "id": "a286b9f0707a07f7",
+        "type": "file in",
+        "z": "fdea4f1a813872ee",
+        "name": "get Config",
+        "filename": "/home/eichenbe/PythonTrials/NodeRed_Trials/config.json",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 290,
+        "y": 80,
+        "wires": [
+            [
+                "821ab88fed96d914"
+            ]
+        ]
+    },
+    {
+        "id": "821ab88fed96d914",
+        "type": "json",
+        "z": "fdea4f1a813872ee",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 470,
+        "y": 80,
+        "wires": [
+            [
+                "a04a269b484df4f0",
+                "0da55c100df996cb"
+            ]
+        ]
+    },
+    {
+        "id": "8e35f5a7097972fe",
+        "type": "function",
+        "z": "fdea4f1a813872ee",
+        "name": "I_Charge",
+        "func": "msg.update = 99\nif (msg.topic == \"config\") {\n    msg.ui_control = {\n        \"min\": msg.payload.config.GUI_config.i_charge_min,\n        \"max\": msg.payload.config.GUI_config.i_charge_max\n    };\n    if (!(\"I_min\" in msg.payload)) {\n        msg.payload[\"I_min\"] = msg.ui_control.min;\n    }\n    if (!(\"I_max\" in msg.payload)) {\n        msg.payload[\"I_max\"] = msg.ui_control.max;\n    }\n    msg.update = 0\n    flow.set(\"I_min\", msg.payload.I_min)\n    flow.set(\"I_max\", msg.payload.I_max)\n    \n} else if (msg.topic == \"I_min\") {\n    if (msg.payload.I_max < msg.payload.I_min) {\n        msg.payload.I_max = msg.payload.I_min\n        msg.update = 2\n    }\n    flow.set(\"I_min\", msg.payload.I_min)\n} else if (msg.topic == \"I_max\") {\n    if (msg.payload.I_min > msg.payload.I_max) {\n        msg.payload.I_min = msg.payload.I_max\n        msg.update = 1\n    }\n    flow.set(\"I_max\", msg.payload.I_max)\n} else {\n    node.error(\"I_Charge: unknown msg.topic \" + msg.topic, msg);\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 120,
+        "y": 240,
+        "wires": [
+            [
+                "b8a5242553ae9f23"
+            ]
+        ]
+    },
+    {
+        "id": "73112250138b8d75",
+        "type": "ui_slider",
+        "z": "fdea4f1a813872ee",
+        "name": "",
+        "label": "Max Charge",
+        "tooltip": "Max charge current allowed",
+        "group": "6f25cc7b53b9174f",
+        "order": 2,
+        "width": "0",
+        "height": "0",
+        "passthru": true,
+        "outs": "end",
+        "topic": "I_max",
+        "topicType": "str",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "className": "",
+        "x": 790,
+        "y": 300,
+        "wires": [
+            [
+                "d79990882df7ee90"
+            ]
+        ]
+    },
+    {
+        "id": "a04a269b484df4f0",
+        "type": "function",
+        "z": "fdea4f1a813872ee",
+        "name": "I_Grid",
+        "func": "msg.ui_control = {\n    \"min\": 0,\n    \"max\": msg.payload.GUI_config.i_charge_max\n}\nflow.set(\"I_gridMax\", 0)\nmsg.payload = 0\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 360,
+        "wires": [
+            [
+                "1db5b9aef5c29a8c"
+            ]
+        ]
+    },
+    {
+        "id": "1db5b9aef5c29a8c",
+        "type": "ui_slider",
+        "z": "fdea4f1a813872ee",
+        "name": "",
+        "label": "Max Grid Current",
+        "tooltip": "Max grid current for car charging",
+        "group": "6f25cc7b53b9174f",
+        "order": 3,
+        "width": "0",
+        "height": "0",
+        "passthru": true,
+        "outs": "end",
+        "topic": "I_gridMax",
+        "topicType": "str",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "className": "",
+        "x": 810,
+        "y": 360,
+        "wires": [
+            [
+                "c5b3ef4ef5d7d117"
+            ]
+        ]
+    },
+    {
+        "id": "84d2583f214e0f38",
+        "type": "debug",
+        "z": "fdea4f1a813872ee",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 110,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "0da55c100df996cb",
+        "type": "function",
+        "z": "fdea4f1a813872ee",
+        "name": "add topic",
+        "func": "msg.topic = \"config\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 80,
+        "wires": [
+            [
+                "d79990882df7ee90",
+                "e6e1e01e755fb9e2"
+            ]
+        ]
+    },
+    {
+        "id": "d79990882df7ee90",
+        "type": "join",
+        "z": "fdea4f1a813872ee",
+        "name": "join Charge",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": true,
+        "timeout": "",
+        "count": "1",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "num",
+        "reduceFixup": "",
+        "x": 1030,
+        "y": 160,
+        "wires": [
+            [
+                "8e35f5a7097972fe"
+            ]
+        ]
+    },
+    {
+        "id": "cccd847a0b84e317",
+        "type": "function",
+        "z": "fdea4f1a813872ee",
+        "name": "config I_max",
+        "func": "msg.payload = msg.payload.I_max;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 300,
+        "wires": [
+            [
+                "73112250138b8d75"
+            ]
+        ]
+    },
+    {
+        "id": "b7387ef91c94cdbe",
+        "type": "function",
+        "z": "fdea4f1a813872ee",
+        "name": "config I_min",
+        "func": "msg.payload = msg.payload.I_min; \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 240,
+        "wires": [
+            [
+                "6960b6aa5e80f3f4"
+            ]
+        ]
+    },
+    {
+        "id": "08d7e5664af0815b",
+        "type": "ui_slider",
+        "z": "fdea4f1a813872ee",
+        "name": "",
+        "label": "minSOC",
+        "tooltip": "Min SOC",
+        "group": "723de613faadf518",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "minSOC",
+        "topicType": "str",
+        "min": 0,
+        "max": "100",
+        "step": "1",
+        "className": "",
+        "x": 780,
+        "y": 620,
+        "wires": [
+            [
+                "e6e1e01e755fb9e2"
+            ]
+        ]
+    },
+    {
+        "id": "bc07384a3678aa5d",
+        "type": "ui_slider",
+        "z": "fdea4f1a813872ee",
+        "name": "",
+        "label": "minSOC (Charge)",
+        "tooltip": "Min SOC before charging starts",
+        "group": "723de613faadf518",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "minSOCCharge",
+        "topicType": "str",
+        "min": 0,
+        "max": "100",
+        "step": "1",
+        "className": "",
+        "x": 810,
+        "y": 680,
+        "wires": [
+            [
+                "e6e1e01e755fb9e2"
+            ]
+        ]
+    },
+    {
+        "id": "331ee46ba8dd9522",
+        "type": "ui_slider",
+        "z": "fdea4f1a813872ee",
+        "name": "",
+        "label": "maxSOC (Charge)",
+        "tooltip": "Max SOC during charging",
+        "group": "723de613faadf518",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "maxSOCCharge",
+        "topicType": "str",
+        "min": 0,
+        "max": "100",
+        "step": "1",
+        "className": "",
+        "x": 810,
+        "y": 740,
+        "wires": [
+            [
+                "e6e1e01e755fb9e2"
+            ]
+        ]
+    },
+    {
+        "id": "26311181aaf58812",
+        "type": "ui_slider",
+        "z": "fdea4f1a813872ee",
+        "name": "",
+        "label": "maxSOC",
+        "tooltip": "Max SOC",
+        "group": "723de613faadf518",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "maxSOC",
+        "topicType": "str",
+        "min": 0,
+        "max": "100",
+        "step": "1",
+        "className": "",
+        "x": 780,
+        "y": 800,
+        "wires": [
+            [
+                "e6e1e01e755fb9e2"
+            ]
+        ]
+    },
+    {
+        "id": "a1f88a7f4325d0e9",
+        "type": "ui_template",
+        "z": "fdea4f1a813872ee",
+        "group": "6f25cc7b53b9174f",
+        "name": "template Charge",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "format": "<style> #PV_Control_Charge_Control_cards \n.nr-dashboard-slider p.label \n{ width: 40%; \n  max-width: 40%; \n  min-width: 40%; \n  overflow: hidden; } \n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1040,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b7a8723f5fff876f",
+        "type": "ui_template",
+        "z": "fdea4f1a813872ee",
+        "group": "723de613faadf518",
+        "name": "template SOC",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "format": "<style> #PV_Control_SOC_Control_cards \n.nr-dashboard-slider p.label \n{ width: 40%; \n  max-width: 40%; \n  min-width: 40%; \n  overflow: hidden; } \n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1040,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "821abe062a5f1b14",
+        "type": "function",
+        "z": "fdea4f1a813872ee",
+        "name": "SOC",
+        "func": "msg.update = 99\nif (msg.topic == \"config\") {\n    msg.ui_control = {\n        \"min\": Number(msg.payload.config.GUI_config.minsoc)*100,\n        \"max\": 100\n    };\n    if (!(\"minSOC\" in msg.payload)) {\n        msg.payload[\"minSOC\"] = msg.ui_control.min;\n    }\n    if (!(\"minSOCCharge\" in msg.payload)) {\n        msg.payload[\"minSOCCharge\"] = msg.ui_control.min;\n    }\n    if (!(\"maxSOCCharge\" in msg.payload)) {\n        msg.payload[\"maxSOCCharge\"] = msg.ui_control.max;\n    }\n    if (!(\"maxSOC\" in msg.payload)) {\n        msg.payload[\"maxSOC\"] = msg.ui_control.max;\n    }\n    msg.update = 0\n    flow.set(\"minSOC\", msg.payload.minSOC)\n    flow.set(\"minSOCCharge\", msg.payload.minSOCCharge)\n    flow.set(\"maxSOCCharge\", msg.payload.maxSOCCharge)\n    flow.set(\"maxSOC\", msg.payload.maxSOC)\n    \n} else if (msg.topic == \"minSOC\") {\n    if (flow.get(\"minSOCCharge\") < msg.payload.minSOC) {\n        msg.payload.minSOCCharge = msg.payload.minSOC\n        msg.update = 2\n    }\n    flow.set(\"minSOC\", msg.payload.minSOC)\n} else if (msg.topic == \"minSOCCharge\") {\n    if (flow.get(\"minSOC\") > msg.payload.minSOCCharge) {\n        msg.payload.minSOC = msg.payload.minSOCCharge\n        msg.update = 1\n    } else if (flow.get(\"maxSOCCharge\") < msg.payload.minSOCCharge) {\n        msg.payload.maxSOCCharge = msg.payload.minSOCCharge\n        msg.update = 3\n    }\n    flow.set(\"minSOCCharge\", msg.payload.minSOCCharge)\n} else if (msg.topic == \"maxSOCCharge\") {\n    if (flow.get(\"minSOCCharge\") > msg.payload.maxSOCCharge) {\n        msg.payload.minSOCCharge = msg.payload.maxSOCCharge\n        msg.update = 2\n    } else if (flow.get(\"maxSOC\") < msg.payload.maxSOCCharge) {\n        msg.update = 4\n        msg.payload.maxSOC = msg.payload.maxSOCCharge\n    }\n    flow.set(\"maxSOCCharge\", msg.payload.maxSOCCharge)\n} else if (msg.topic == \"maxSOC\") {\n    if (flow.get(\"maxSOCCharge\") > msg.payload.maxSOC) {\n        msg.payload.maxSOCCharge = msg.payload.maxSOC\n        msg.update = 3\n    }\n    flow.set(\"maxSOC\", msg.payload.maxSOC)\n} else {\n    node.error(\"SOC: unknown msg.topic \" + msg.topic, msg);\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 110,
+        "y": 640,
+        "wires": [
+            [
+                "d7da4fc00f92ac78"
+            ]
+        ]
+    },
+    {
+        "id": "e6e1e01e755fb9e2",
+        "type": "join",
+        "z": "fdea4f1a813872ee",
+        "name": "join SOC",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": true,
+        "timeout": "",
+        "count": "1",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1020,
+        "y": 540,
+        "wires": [
+            [
+                "821abe062a5f1b14"
+            ]
+        ]
+    },
+    {
+        "id": "ec95e2c20cd73b29",
+        "type": "function",
+        "z": "fdea4f1a813872ee",
+        "name": "config minSOC",
+        "func": "msg.payload = msg.payload.minSOC; \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 620,
+        "wires": [
+            [
+                "08d7e5664af0815b"
+            ]
+        ]
+    },
+    {
+        "id": "5c5efe33f80065e7",
+        "type": "function",
+        "z": "fdea4f1a813872ee",
+        "name": "config minSOCCharge",
+        "func": "msg.payload = msg.payload.minSOCCharge; \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 680,
+        "wires": [
+            [
+                "bc07384a3678aa5d"
+            ]
+        ]
+    },
+    {
+        "id": "ad9eb17081dfea19",
+        "type": "function",
+        "z": "fdea4f1a813872ee",
+        "name": "config maxSOCCharge",
+        "func": "msg.payload = msg.payload.maxSOCCharge; \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 740,
+        "wires": [
+            [
+                "331ee46ba8dd9522"
+            ]
+        ]
+    },
+    {
+        "id": "da305b2292bbb415",
+        "type": "function",
+        "z": "fdea4f1a813872ee",
+        "name": "config maxSOC",
+        "func": "msg.payload = msg.payload.maxSOC; \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 800,
+        "wires": [
+            [
+                "26311181aaf58812"
+            ]
+        ]
+    },
+    {
+        "id": "d7da4fc00f92ac78",
+        "type": "switch",
+        "z": "fdea4f1a813872ee",
+        "name": "switchSOC",
+        "property": "update",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "3",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "4",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 5,
+        "x": 290,
+        "y": 640,
+        "wires": [
+            [
+                "ec95e2c20cd73b29",
+                "5c5efe33f80065e7",
+                "ad9eb17081dfea19",
+                "da305b2292bbb415"
+            ],
+            [
+                "ec95e2c20cd73b29"
+            ],
+            [
+                "5c5efe33f80065e7"
+            ],
+            [
+                "ad9eb17081dfea19"
+            ],
+            [
+                "da305b2292bbb415"
+            ]
+        ]
+    },
+    {
+        "id": "b8a5242553ae9f23",
+        "type": "switch",
+        "z": "fdea4f1a813872ee",
+        "name": "switchCharge",
+        "property": "update",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 300,
+        "y": 240,
+        "wires": [
+            [
+                "b7387ef91c94cdbe",
+                "cccd847a0b84e317"
+            ],
+            [
+                "b7387ef91c94cdbe"
+            ],
+            [
+                "cccd847a0b84e317"
+            ]
+        ]
+    },
+    {
+        "id": "ae30b0a366acb36b",
+        "type": "ui_switch",
+        "z": "fdea4f1a813872ee",
+        "name": "",
+        "label": "Start NOW",
+        "tooltip": "Start charging now (vs. start time below)",
+        "group": "6f25cc7b53b9174f",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "nowSwitch",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "1",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 790,
+        "y": 420,
+        "wires": [
+            [
+                "2d3fad3fc43f2c4e"
+            ]
+        ]
+    },
+    {
+        "id": "fa764d827e8a354d",
+        "type": "inject",
+        "z": "fdea4f1a813872ee",
+        "name": "init_1",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 110,
+        "y": 420,
+        "wires": [
+            [
+                "5e50b62616a07825",
+                "cabedcfe91f0fa47"
+            ]
+        ]
+    },
+    {
+        "id": "e3c6c628e856fa60",
+        "type": "ui_text_input",
+        "z": "fdea4f1a813872ee",
+        "name": "",
+        "label": "Charge Start",
+        "tooltip": "Start time of charging",
+        "group": "6f25cc7b53b9174f",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "time",
+        "delay": 300,
+        "topic": "StartTime",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 790,
+        "y": 480,
+        "wires": [
+            [
+                "c2691b8e86a3efa3"
+            ]
+        ]
+    },
+    {
+        "id": "a54a6f9fcd5b6f69",
+        "type": "ui_button",
+        "z": "fdea4f1a813872ee",
+        "name": "",
+        "group": "723de613faadf518",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Save",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "Save",
+        "topicType": "str",
+        "x": 490,
+        "y": 860,
+        "wires": [
+            [
+                "5ea917eba5f1f34b"
+            ]
+        ]
+    },
+    {
+        "id": "5ea917eba5f1f34b",
+        "type": "function",
+        "z": "fdea4f1a813872ee",
+        "name": "",
+        "func": "str = \"[PVControl]\\n\";\nkeys = flow.keys();\nmsg.payload = {};\nfor (var i = 0; i < keys.length; i++) {\n    key = keys[i];\n    str += \"    \" + key + \" = \" + flow.get(key) + \"\\n\";\n}\nmsg.payload = str;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 860,
+        "wires": [
+            [
+                "0642c142661b7155"
+            ]
+        ]
+    },
+    {
+        "id": "c5b3ef4ef5d7d117",
+        "type": "function",
+        "z": "fdea4f1a813872ee",
+        "name": "I_gridMax",
+        "func": "flow.set(\"I_gridMax\", msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2d3fad3fc43f2c4e",
+        "type": "function",
+        "z": "fdea4f1a813872ee",
+        "name": "nowSwitch",
+        "func": "flow.set(\"nowSwitch\", msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1030,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5e50b62616a07825",
+        "type": "function",
+        "z": "fdea4f1a813872ee",
+        "name": "nowSwitchInit",
+        "func": "flow.set(\"nowSwitch\", msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 420,
+        "wires": [
+            [
+                "ae30b0a366acb36b"
+            ]
+        ]
+    },
+    {
+        "id": "c2691b8e86a3efa3",
+        "type": "function",
+        "z": "fdea4f1a813872ee",
+        "name": "chargeStart",
+        "func": "flow.set(\"chargeStart\", msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1030,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cabedcfe91f0fa47",
+        "type": "function",
+        "z": "fdea4f1a813872ee",
+        "name": "chargeStartInit",
+        "func": "msg.payload = 0\nflow.set(\"chargeStart\", msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 480,
+        "wires": [
+            [
+                "e3c6c628e856fa60"
+            ]
+        ]
+    },
+    {
+        "id": "0642c142661b7155",
+        "type": "file",
+        "z": "fdea4f1a813872ee",
+        "name": "write Config",
+        "filename": "/home/eichenbe/PythonTrials/NodeRed_Trials/gui_config.ini",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1030,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    }
+]
