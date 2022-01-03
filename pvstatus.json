@@ -1,0 +1,44 @@
+{
+    "ctrlstatus": {
+        "calcSOC": 0.34385571534233944,
+        "avail_P": -1,
+        "need": 5068.799999999999,
+        "have": 172.6809377380556,
+        "bat_forecast": 0.034067419850468676,
+        "I_charge": 0,
+        "fastcharge": true,
+        "ctrl_power": 0.0,
+        "max_soc": 1.0,
+        "inhibitDischarge": false,
+        "batMinSoc": 0.05,
+        "chargeNow": 1
+    },
+    "pvstatus": {
+        "home_consumption": 479.0,
+        "grid_power": -50.0,
+        "feedinLimit": 7222.0029296875,
+        "dc_power": 1559.3619995117,
+        "grid_voltage": 236.94603474936665,
+        "bat_power": -1389.0,
+        "soc": 0.34,
+        "max_bat_charge": 4176.4052734375,
+        "max_soc": 1.0,
+        "smart_bat_ctrl": 0.0,
+        "minSoc": 0.15
+    },
+    "wbstatus": {
+        "modeid": 3,
+        "manualmodeamp": 6.0,
+        "stateid": 17,
+        "connected": false,
+        "ctrl_current": 0.0,
+        "I_min": 6.0,
+        "I_max": 16.0,
+        "active_power": 5.9,
+        "cos_phi": 0.858,
+        "current_L1": 0.031,
+        "current_L2": 0.0,
+        "current_L3": 0.0,
+        "charge_completed": false
+    }
+}

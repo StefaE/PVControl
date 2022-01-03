@@ -1,9 +1,86 @@
-ChargeControl
-=============
+# PVControl
+GUI Controller for [PVOptimize](https://stefae.github.io/PVOptimize/)
 
-Control EV Charge through PVOptimize
+## Introduction
+The project `PVOptimize` allows to flexibly manage how a PV rooftop installation charges an EV. However, the only way to make use of the flexibility is through a `config.ini` file.
 
-### About
+This project provides a GUI to control relevant aspects from a [Node-Red Dashboard](https://flows.nodered.org/node/node-red-dashboard). This GUI is an optional addition to `PVOptimize`. Some familiarity with `Node-Red` might be needed to install.
 
-This is your project's README.md file. It helps users understand what your
-project does, how to use it and anything else they may need to know.
+Improvements are welcome - please use *Issues* and *Discussions* in Git.
+
+-------------
+## Table of Content
+  * [Introduction](#introduction)
+  * [Architecture](#architecture)
+  * [Enabling the GUI](#enabling-the-gui)
+  * [Usage of the GUI](#usage-of-the-gui)
+  * [Installation](#installation)
+  * [Version History](#version-history)
+  * [Disclaimer](#disclaimer)
+  * [License](#license)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
+-------------
+
+## Architecture
+
+The following depicts the basic architecture:
+* `PVOptimize` is called every minute or so from eg. an appropriate `crontab` entry
+* it returns a `pvstatus.json` file with three sections `ctrlstatus` (controller status), `pvstatus` (PV system status) and `wbstatus` (wallbox status)
+* this contains sufficient information to initally configure the dashboard (slider lengths, default values, wallbox status to be displayed in rightmost *State* group)
+* upon `Save` of the dashboard settings, a `gui_config.ini` is created, which contains `PVControl` items
+* on next call of `PVOptimize`, (1) the default config file `config.ini` is read, then (2) the `gui_config.ini` which overwrites values of `config.ini` and thus makes `PVOptimize` behave as configured in the dash board
+
+![Architecture](docs/architecture.png)
+
+The dashboard flow is basically generic to `PVOptimize` in version 2.0, except for a section marked as *Hardy Barth specific* (for the *State* group)
+
+## Enabling the GUI
+
+* The GUI is enabled in `config.ini` by setting `PVControl.enableGUI = 1`.
+* The files `pvstatus.json` and `gui_config.ini` are located in the directory `PVControl.guiPath`, which defauts to `~/.node-red/projects/PVControl`
+
+## Usage of the GUI
+
+The GUI dashboard is called with `<ip_of_host_running_GUI>:1880/ui` from any browser and should bring up a panel similar to below:
+
+![Dashboard](docs/dashboard.png)
+
+It consists of three groups:
+* `Charge Control` and `SOC Control` control the config items as described in [PVOptimize documentation](https://stefae.github.io/PVOptimize/#understanding-configuration-options-for-ev-charging-and-soc-management)
+* `State` displays the current state of the wall box and a one-hour history of requested charge current
+
+`Charge Control` contains two additional widgets, not described so far:
+* `Start NOW` enables charging immediatly (subject of other constraints of `PVOptimize`)
+* `Charge Start` sets a starting time for enabling charging. For this to work, `Start NOW` obviously needs be disabled. Once the time is reached, `Start NOW` is enabled - in other words, `Charge Start` expires after latest 24 hours.
+
+## Installation
+The project requires [Node_RED](https://nodered.org/docs/getting-started/raspberrypi) on the same host as [PVOptimize](https://stefae.github.io/PVOptimize/) is installed. It has been developped and seen running with the following versions and components:
+
+| Software | Version |
+|----------|---------|
+| Node-RED | v 2.1.4 |
+| node.js  | 16.13.1 (or 17.3.0) |
+| node-red-dashboard | 3.1.3 |
+| node-red-contrib-projectdir | 2.0.5 |
+
+`Node-RED` has been setup to handle [projects ](https://nodered.org/docs/user-guide/projects/) and the project files reside in `~/node-red/projects/PVControl`. This directory is also used to exchange information with `PVOptimize` as described above.
+
+Once the flow is installed (and a manual trial run successfully executed), enable `PVControl.enableGUI = 1` in `config.ini` of `PVOptimize`. To bootstrap the flow, default files for `pvstatus.json` and `gui_config.ini` are provided.
+
+## Version History
+
+| Version |Date | Comment |
+|---------|-----|---------|
+| 1.0     | January 2022 | Initial release |
+
+## Disclaimer
+The software controls `PVOptimize`. Errors in the GUI software can result in `PVOptimize` not to perform its desired task - as an example, the EV could remain un-charged in the morning. The author cannot be held liable for this or any other damage caused through the use of this software.
+
+**Use at your own risk!**
+
+Further warranty limitations are implied by the license. Note that `PVOptimize` contains a similar disclaimer.
+
+## License
+Distributed under the terms of the GNU General Public License v3.
