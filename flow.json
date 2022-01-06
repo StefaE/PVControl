@@ -333,7 +333,7 @@
         "type": "debug",
         "z": "fdea4f1a813872ee",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
