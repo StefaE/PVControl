@@ -28,7 +28,7 @@ Improvements are welcome - please use *Issues* and *Discussions* in Git.
 
 The following depicts the basic architecture:
 * `PVOptimize` is called every minute or so from eg. an appropriate `crontab` entry
-* it returns a `pvstatus.json` file with three sections `ctrlstatus` (controller status), `pvstatus` (PV system status) and `wbstatus` (wallbox status)
+* it returns a `pvstatus.json` file with three sections `ctrlstatus` (controller status), `pvstatus` (PV system status) and `wbstatus` (wallbox status). (An additional member `pvcontrol` is used to report current settings to the GUI, in case the GUI is re-started)
 * this contains sufficient information to initally configure the dashboard (slider lengths, default values, wallbox status to be displayed in rightmost *State* group)
 * upon `Save` of the dashboard settings, a `gui_config.ini` is created, which contains `PVControl` items
 * on next call of `PVOptimize`, (1) the default config file `config.ini` is read, then (2) the `gui_config.ini` which overwrites values of `config.ini` and thus makes `PVOptimize` behave as configured in the dash board

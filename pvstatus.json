@@ -40,5 +40,14 @@
         "current_L2": 0.0,
         "current_L3": 0.0,
         "charge_completed": false
+    },
+    "pvcontrol": {
+        "I_gridMax": 0,
+        "I_max": 16,
+        "I_min": 6,
+        "maxSOC": 1,
+        "maxSOCCharge": 1,
+        "minSOC": 0.05,
+        "minSOCCharge": 0.05
     }
 }
