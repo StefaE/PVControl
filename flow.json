@@ -889,8 +889,7 @@
         "y": 860,
         "wires": [
             [
-                "0642c142661b7155",
-                "84d2583f214e0f38"
+                "0642c142661b7155"
             ]
         ]
     },
@@ -1064,7 +1063,7 @@
         "type": "function",
         "z": "fdea4f1a813872ee",
         "name": "",
-        "func": "modeid    = msg.payload.wbstatus.modeid\nstateid   = msg.payload.wbstatus.stateid\nconnected = msg.payload.wbstatus.connected\ncompleted = msg.payload.wbstatus.charge_completed\n\nset_Amp   = msg.payload.wbstatus.manualmodeamp\nreq_Amp   = msg.payload.ctrlstatus.I_charge\ncos_phi   = msg.payload.wbstatus.cos_phi*10\n\nif (global.get('cnt') == 1) {\n    msg.ui_control = {\n        'ymax': msg.payload.wbstatus.I_max\n    }\n}\nif (modeid == 3) {\n    state = 'Manual / '\n    if (stateid == 17) {\n        state += 'Disabled' \n    } else if (stateid == 0) {\n        state += 'Idle'\n    } else if (stateid == 4) {\n        state += 'Waiting'\n    } else if (stateid == 5) {\n        state += 'Charging'\n    } else {\n        state += 'ERR' + stateid.toString()\n    }\n    state += \" / \" + set_Amp.toString() + \"A\"\n} else if (modeid == 1) {\n    state = 'ECO'\n} else if (modeid == 2) {\n    state = 'Quick'\n}\n\nif (connected == 0) {\n    connect = 'not connected'\n} else if (completed == 0) {\n    connect = 'connected / not completed'\n} else {\n    connect = 'completed'\n}\nmsg.payload['state']     = state\nmsg.payload['connect']   = connect\nmsg.payload['requested'] = req_Amp.toString() + \"A\"\nmsg.payload['cos_phi']   = cos_phi\n\nreturn msg;",
+        "func": "modeid    = msg.payload.wbstatus.modeid\nstateid   = msg.payload.wbstatus.stateid\nconnected = msg.payload.wbstatus.connected\ncompleted = msg.payload.wbstatus.charge_completed\n\nset_Amp   = msg.payload.wbstatus.manualmodeamp\nreq_Amp   = msg.payload.ctrlstatus.I_charge\nact_Amp   = msg.payload.wbstatus.active_power/(3*msg.payload.pvstatus.grid_voltage)\ncos_phi   = msg.payload.wbstatus.cos_phi*10\n\nif (global.get('cnt') == 1) {\n    msg.ui_control = {\n        'ymax': msg.payload.wbstatus.I_max\n    }\n}\nif (modeid == 3) {\n    state = 'Manual / '\n    if (stateid == 17) {\n        state += 'Disabled' \n    } else if (stateid == 0) {\n        state += 'Idle'\n    } else if (stateid == 4) {\n        state += 'Waiting'\n    } else if (stateid == 5) {\n        state += 'Charging'\n    } else {\n        state += 'ERR' + stateid.toString()\n    }\n    state += \" / \" + set_Amp.toString() + \"A\"\n} else if (modeid == 1) {\n    state = 'ECO'\n} else if (modeid == 2) {\n    state = 'Quick'\n}\n\nif (connected == 0) {\n    connect = 'not connected'\n} else if (completed == 0) {\n    connect = 'connected / not completed'\n} else {\n    connect = 'completed'\n}\nmsg.payload['state']     = state\nmsg.payload['connect']   = connect\nmsg.payload['requested'] = req_Amp.toString() + \"A\"\nmsg.payload['actual']    = act_Amp.toString() + \"A\"\nmsg.payload['cos_phi']   = cos_phi\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1078,6 +1077,7 @@
                 "cd0e0142d7c9886d",
                 "9f29204a608c77b6",
                 "229a1dd888e50004",
+                "64e4af554c3836ce",
                 "192db8572fbad653"
             ]
         ]
@@ -1137,14 +1137,14 @@
         "id": "229a1dd888e50004",
         "type": "function",
         "z": "fdea4f1a813872ee",
-        "name": "",
-        "func": "msg.payload = msg.payload.requested\nmsg.topic = \"req. current\"\n\nif (global.get(\"cnt\") == 1) {\n    msg.payload = []\n}\n\nreturn msg;",
+        "name": "I_req",
+        "func": "msg.payload = msg.payload.requested\nmsg.topic = \"I_req\"\n\nif (global.get(\"cnt\") == 1) {\n    msg.payload = []\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 300,
+        "x": 290,
         "y": 1080,
         "wires": [
             [
@@ -1156,7 +1156,7 @@
         "id": "192db8572fbad653",
         "type": "function",
         "z": "fdea4f1a813872ee",
-        "name": "",
+        "name": "cos phi",
         "func": "msg.payload = msg.payload.cos_phi\nmsg.topic = \"cos phi (*10)\"\n\nif (global.get(\"cnt\") == 1) {\n    msg.payload = []\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
@@ -1164,7 +1164,7 @@
         "finalize": "",
         "libs": [],
         "x": 300,
-        "y": 1120,
+        "y": 1160,
         "wires": [
             [
                 "7cc8b868d491713d"
@@ -1197,9 +1197,9 @@
         "useUTC": false,
         "colors": [
             "#1f77b4",
-            "#e8d7ae",
-            "#ff7f0e",
             "#2ca02c",
+            "#e8d7ae",
+            "#71a2d1",
             "#98df8a",
             "#d62728",
             "#ff9896",
@@ -1253,6 +1253,25 @@
                 "b693dec94595b248",
                 "24c11b92f9fd074c",
                 "5e50b62616a07825"
+            ]
+        ]
+    },
+    {
+        "id": "64e4af554c3836ce",
+        "type": "function",
+        "z": "fdea4f1a813872ee",
+        "name": "I_act",
+        "func": "msg.payload = msg.payload.actual\nmsg.topic = \"I_act\"\n\nif (global.get(\"cnt\") == 1) {\n    msg.payload = []\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 1120,
+        "wires": [
+            [
+                "7cc8b868d491713d"
             ]
         ]
     }
