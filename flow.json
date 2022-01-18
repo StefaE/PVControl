@@ -168,7 +168,8 @@
         "y": 240,
         "wires": [
             [
-                "d79990882df7ee90"
+                "d79990882df7ee90",
+                "0113e9f8eb63a447"
             ]
         ]
     },
@@ -278,7 +279,8 @@
         "y": 300,
         "wires": [
             [
-                "d79990882df7ee90"
+                "d79990882df7ee90",
+                "0113e9f8eb63a447"
             ]
         ]
     },
@@ -324,7 +326,8 @@
         "y": 360,
         "wires": [
             [
-                "c5b3ef4ef5d7d117"
+                "c5b3ef4ef5d7d117",
+                "0113e9f8eb63a447"
             ]
         ]
     },
@@ -333,7 +336,7 @@
         "type": "debug",
         "z": "fdea4f1a813872ee",
         "name": "",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -342,7 +345,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1010,
-        "y": 960,
+        "y": 1060,
         "wires": []
     },
     {
@@ -434,7 +437,8 @@
         "y": 620,
         "wires": [
             [
-                "e6e1e01e755fb9e2"
+                "e6e1e01e755fb9e2",
+                "0113e9f8eb63a447"
             ]
         ]
     },
@@ -461,7 +465,8 @@
         "y": 680,
         "wires": [
             [
-                "e6e1e01e755fb9e2"
+                "e6e1e01e755fb9e2",
+                "0113e9f8eb63a447"
             ]
         ]
     },
@@ -488,7 +493,8 @@
         "y": 740,
         "wires": [
             [
-                "e6e1e01e755fb9e2"
+                "e6e1e01e755fb9e2",
+                "0113e9f8eb63a447"
             ]
         ]
     },
@@ -515,7 +521,8 @@
         "y": 800,
         "wires": [
             [
-                "e6e1e01e755fb9e2"
+                "e6e1e01e755fb9e2",
+                "0113e9f8eb63a447"
             ]
         ]
     },
@@ -816,7 +823,8 @@
         "y": 420,
         "wires": [
             [
-                "2d3fad3fc43f2c4e"
+                "2d3fad3fc43f2c4e",
+                "0113e9f8eb63a447"
             ]
         ]
     },
@@ -842,7 +850,8 @@
         "y": 480,
         "wires": [
             [
-                "c2691b8e86a3efa3"
+                "c2691b8e86a3efa3",
+                "0113e9f8eb63a447"
             ]
         ]
     },
@@ -879,7 +888,7 @@
         "type": "function",
         "z": "fdea4f1a813872ee",
         "name": "writeOutput",
-        "func": "str = \"[PVControl]\\n\";\nkeys = flow.keys().sort();\nmsg.payload = {};\nfor (var i = 0; i < keys.length; i++) {\n    key = keys[i];\n    val = flow.get(key);\n    if (key.endsWith(\"_0\")) {\n        continue;\n    } else if (key.includes('SOC')) {\n        val = val/100\n    } else if (key == 'chargeStart') {           // convert time stamp to Epoch (UTC)\n        date = new Date()\n        offs = -60000*date.getTimezoneOffset()   // offset for local time zone (vs. UTC)\n\n        now  = date.getTime() + offs             // now (in local time zone)\n\n        date.setHours(0)\n        date.setMinutes(0)\n        date.setSeconds(0)\n        date.setMilliseconds(0)                  // set date to last midnight\n\n        val   = date.getTime() + offs + val      // time to start charging\n        slack = 1*60000                          // give 1min slack: if start time is closer to this, loop over to next day\n        if (val < now - slack) {\n            val = val + 86400000                 // loop over to next day\n        }\n        val = val - offs                         // convert to UTC\n    }\n    str += \"    \" + key + \" = \" + val + \"\\n\";\n}\nmsg.payload = str;\nmsg.filename = global.get(\"projectdir\") + \"/gui_config.ini\"\nflow.set(\"saved\", new Date())\nreturn msg;",
+        "func": "str = \"[PVControl]\\n\";\nkeys = flow.keys().sort();\nmsg.payload = {};\nfor (var i = 0; i < keys.length; i++) {\n    key = keys[i];\n    val = flow.get(key);\n    if (key.endsWith(\"_0\")) {\n        continue;\n    } else if (key.includes('SOC')) {\n        val = val/100\n    } else if (key == 'chargeStart') {           // convert time stamp to Epoch (UTC)\n        date = new Date()\n        offs = -60000*date.getTimezoneOffset()   // offset for local time zone (vs. UTC)\n\n        now  = date.getTime() + offs             // now (in local time zone)\n\n        date.setHours(0)\n        date.setMinutes(0)\n        date.setSeconds(0)\n        date.setMilliseconds(0)                  // set date to last midnight\n\n        val   = date.getTime() + offs + val      // time to start charging\n        slack = 1*60000                          // give 1min slack: if start time is closer to this, loop over to next day\n        if (val < now - slack) {\n            val = val + 86400000                 // loop over to next day\n        }\n        val = val - offs                         // convert to UTC\n    }\n    str += \"    \" + key + \" = \" + val + \"\\n\";\n}\nmsg.payload = str;\nmsg.filename = global.get(\"projectdir\") + \"/gui_config.ini\"\nflow.set(\"saved\", new Date())\nflow.set(\"isSaved\", 1)\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -889,7 +898,8 @@
         "y": 860,
         "wires": [
             [
-                "0642c142661b7155"
+                "0642c142661b7155",
+                "7a60874526196f3b"
             ]
         ]
     },
@@ -1232,7 +1242,7 @@
         "name": "Debugging",
         "info": "",
         "x": 1020,
-        "y": 920,
+        "y": 1020,
         "wires": []
     },
     {
@@ -1272,6 +1282,62 @@
         "wires": [
             [
                 "7cc8b868d491713d"
+            ]
+        ]
+    },
+    {
+        "id": "655f2648b30131d4",
+        "type": "ui_text",
+        "z": "fdea4f1a813872ee",
+        "group": "723de613faadf518",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Saved",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1010,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "7a60874526196f3b",
+        "type": "function",
+        "z": "fdea4f1a813872ee",
+        "name": "setSaved",
+        "func": "date   = flow.get(\"saved\")\nmonths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']\nday    = (date.getDate()<10?'0':'') + date.getDate()\nhour   = (date.getHours()<10?'0':'') + date.getHours()\nmin    = (date.getMinutes()<10?'0':'') + date.getMinutes()\ntime   = months[date.getMonth()] + \"-\" + day + \" \" + hour + \":\" + min\nif (flow.get(\"isSaved\")) {\n    msg.payload = time\n} else {\n    msg.payload = \"not saved\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 920,
+        "wires": [
+            [
+                "655f2648b30131d4",
+                "84d2583f214e0f38"
+            ]
+        ]
+    },
+    {
+        "id": "0113e9f8eb63a447",
+        "type": "function",
+        "z": "fdea4f1a813872ee",
+        "name": "isSaved",
+        "func": "flow.set(\"isSaved\", 0)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 920,
+        "wires": [
+            [
+                "7a60874526196f3b"
             ]
         ]
     }
