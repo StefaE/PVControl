@@ -280,7 +280,8 @@
         "wires": [
             [
                 "d79990882df7ee90",
-                "0113e9f8eb63a447"
+                "0113e9f8eb63a447",
+                "84d2583f214e0f38"
             ]
         ]
     },
@@ -336,7 +337,7 @@
         "type": "debug",
         "z": "fdea4f1a813872ee",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -521,8 +522,7 @@
         "y": 800,
         "wires": [
             [
-                "e6e1e01e755fb9e2",
-                "0113e9f8eb63a447"
+                "e6e1e01e755fb9e2"
             ]
         ]
     },
@@ -573,7 +573,7 @@
         "type": "function",
         "z": "fdea4f1a813872ee",
         "name": "SOC",
-        "func": "msg.update = 99\nif (msg.topic == \"config\") {\n    if (global.get(\"cnt\") == 1) {\n        msg.ui_control = {\n            \"min\": Number(msg.payload.config.ctrlstatus.batMinSoc)*100,\n            \"max\": 100\n        };\n        \n        msg.payload[\"minSOC\"]       = flow.get(\"minSOC_0\");\n        msg.payload[\"minSOCCharge\"] = flow.get(\"minSOCCharge_0\");\n        msg.payload[\"maxSOCCharge\"] = flow.get(\"maxSOCCharge_0\");\n        msg.payload[\"maxSOC\"]       = flow.get(\"maxSOC\");\n\n        flow.set(\"minSOC\",       msg.payload.minSOC);\n        flow.set(\"minSOCCharge\", msg.payload.minSOCCharge);\n        flow.set(\"maxSOCCharge\", msg.payload.maxSOCCharge);\n        flow.set(\"maxSOC\",       msg.payload.maxSOC);\n\n        msg.update = 0;\n    }\n    \n} else if (msg.topic == \"minSOC\") {\n    if (flow.get(\"minSOCCharge\") < msg.payload.minSOC) {\n        msg.payload.minSOCCharge = msg.payload.minSOC;\n        msg.update = 2;\n    }\n    flow.set(\"minSOC\", msg.payload.minSOC)\n} else if (msg.topic == \"minSOCCharge\") {\n    if (flow.get(\"minSOC\") > msg.payload.minSOCCharge) {\n        msg.payload.minSOC = msg.payload.minSOCCharge;\n        msg.update = 1;\n    } else if (flow.get(\"maxSOCCharge\") < msg.payload.minSOCCharge) {\n        msg.payload.maxSOCCharge = msg.payload.minSOCCharge;\n        msg.update = 3;\n    }\n    flow.set(\"minSOCCharge\", msg.payload.minSOCCharge)\n} else if (msg.topic == \"maxSOCCharge\") {\n    if (flow.get(\"minSOCCharge\") > msg.payload.maxSOCCharge) {\n        msg.payload.minSOCCharge = msg.payload.maxSOCCharge;\n        msg.update = 2;\n    } else if (flow.get(\"maxSOC\") < msg.payload.maxSOCCharge) {\n        msg.update = 4;\n        msg.payload.maxSOC = msg.payload.maxSOCCharge;\n    }\n    flow.set(\"maxSOCCharge\", msg.payload.maxSOCCharge)\n} else if (msg.topic == \"maxSOC\") {\n    if (flow.get(\"maxSOCCharge\") > msg.payload.maxSOC) {\n        msg.payload.maxSOCCharge = msg.payload.maxSOC;\n        msg.update = 3;\n    }\n    flow.set(\"maxSOC\", msg.payload.maxSOC);\n} else {\n    node.error(\"SOC: unknown msg.topic \" + msg.topic, msg);\n}\n\nreturn msg;",
+        "func": "msg.update = 99\nif (msg.topic == \"config\") {\n    if (global.get(\"cnt\") == 1) {\n        msg.ui_control = {\n            \"min\": Number(msg.payload.config.ctrlstatus.batMinSoc)*100,\n            \"max\": 100\n        };\n        \n        msg.payload[\"minSOC\"]       = flow.get(\"minSOC_0\");\n        msg.payload[\"minSOCCharge\"] = flow.get(\"minSOCCharge_0\");\n        msg.payload[\"maxSOCCharge\"] = flow.get(\"maxSOCCharge_0\");\n        msg.payload[\"maxSOC\"]       = flow.get(\"maxSOC_0\");\n\n        flow.set(\"minSOC\",       msg.payload.minSOC);\n        flow.set(\"minSOCCharge\", msg.payload.minSOCCharge);\n        flow.set(\"maxSOCCharge\", msg.payload.maxSOCCharge);\n        flow.set(\"maxSOC\",       msg.payload.maxSOC);\n\n        msg.update = 0;\n    }\n    \n} else if (msg.topic == \"minSOC\") {\n    if (flow.get(\"minSOCCharge\") < msg.payload.minSOC) {\n        msg.payload.minSOCCharge = msg.payload.minSOC;\n        msg.update = 2;\n    }\n    flow.set(\"minSOC\", msg.payload.minSOC)\n} else if (msg.topic == \"minSOCCharge\") {\n    if (flow.get(\"minSOC\") > msg.payload.minSOCCharge) {\n        msg.payload.minSOC = msg.payload.minSOCCharge;\n        msg.update = 1;\n    } else if (flow.get(\"maxSOCCharge\") < msg.payload.minSOCCharge) {\n        msg.payload.maxSOCCharge = msg.payload.minSOCCharge;\n        msg.update = 3;\n    }\n    flow.set(\"minSOCCharge\", msg.payload.minSOCCharge)\n} else if (msg.topic == \"maxSOCCharge\") {\n    if (flow.get(\"minSOCCharge\") > msg.payload.maxSOCCharge) {\n        msg.payload.minSOCCharge = msg.payload.maxSOCCharge;\n        msg.update = 2;\n    } else if (flow.get(\"maxSOC\") < msg.payload.maxSOCCharge) {\n        msg.update = 4;\n        msg.payload.maxSOC = msg.payload.maxSOCCharge;\n    }\n    flow.set(\"maxSOCCharge\", msg.payload.maxSOCCharge)\n} else if (msg.topic == \"maxSOC\") {\n    if (flow.get(\"maxSOCCharge\") > msg.payload.maxSOC) {\n        msg.payload.maxSOCCharge = msg.payload.maxSOC;\n        msg.update = 3;\n    }\n    flow.set(\"maxSOC\", msg.payload.maxSOC);\n} else {\n    node.error(\"SOC: unknown msg.topic \" + msg.topic, msg);\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -942,7 +942,7 @@
         "type": "function",
         "z": "fdea4f1a813872ee",
         "name": "nowSwitch",
-        "func": "if (global.get(\"cnt\") == 1) {\n    msg.payload = 1\n    flow.set(\"chargeNow\", msg.payload)    \n} else if (new Date() - flow.get(\"saved\") < 2*60000) {\n    msg = null\n} else if (\"chargeNow\" in msg.payload.ctrlstatus) {\n    msg.payload = msg.payload.ctrlstatus.chargeNow\n    flow.set(\"chargeNow\", msg.payload)\n} else { \n    msg = null\n}\n\nreturn msg;",
+        "func": "if (global.get(\"cnt\") == 1) {\n    msg.payload = 1\n    flow.set(\"chargeNow\", msg.payload)    \n} else if (new Date() - flow.get(\"saved\") < 2*60000) {\n    msg = null\n} else if (\"chargeNow\" in msg.payload.ctrlstatus & flow.get(\"chargeNow\") != msg.payload.ctrlstatus.chargeNow) {\n    msg.payload = msg.payload.ctrlstatus.chargeNow\n    flow.set(\"chargeNow\", msg.payload)\n    flow.set(\"vetoNotSaved\", 1)\n} else { \n    msg = null\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1029,7 +1029,7 @@
         "func": "msg.filename = msg.projectdir + \"/pvstatus.json\"\nglobal.set(\"projectdir\", msg.projectdir)\n\nglobal.set(\"cnt\", global.get(\"cnt\")+1)\nmsg.cnt = global.get(\"cnt\")\n\nmsg.topic = \"config\"\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "initialize": "global.set(\"cnt\", 0)   // counter 'last config' inject node\nflow.set(\"saved\", 0)   // last time 'Save' was executed",
+        "initialize": "global.set(\"cnt\", 0)   // counter 'last config' inject node\nflow.set(\"saved\", new Date('1970-01-01'))   // last time 'Save' was executed\nflow.set(\"isSaved\", 0)\nflow.set(\"vetoNotSaved\", 0)",
         "finalize": "",
         "libs": [],
         "x": 790,
@@ -1317,8 +1317,7 @@
         "y": 920,
         "wires": [
             [
-                "655f2648b30131d4",
-                "84d2583f214e0f38"
+                "655f2648b30131d4"
             ]
         ]
     },
@@ -1327,7 +1326,7 @@
         "type": "function",
         "z": "fdea4f1a813872ee",
         "name": "isSaved",
-        "func": "flow.set(\"isSaved\", 0)\nreturn msg;",
+        "func": "if (flow.get(\"vetoNotSaved\") == 0) {\n  flow.set(\"isSaved\", 0)\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
