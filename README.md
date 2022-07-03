@@ -91,6 +91,7 @@ Once the flow is installed (and a manual trial run successfully executed), enabl
 | Version |Date | Comment |
 |---------|-----|---------|
 | 1.0     | January 2022 | Initial release |
+| 1.1     | 2022-07-03   | minor bug-fixes, `Start Now` switch replaced with `Delayed Charging`
 
 ## Disclaimer
 The software controls `PVOptimize`. Errors in the GUI software can result in `PVOptimize` not to perform its desired task - as an example, the EV could remain un-charged in the morning. The author cannot be held liable for this or any other damage caused through the use of this software.
