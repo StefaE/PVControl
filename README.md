@@ -67,7 +67,7 @@ It consists of three groups:
 * `State` displays the current state of the wall box and a one-hour history of requested charge current
 
 `Charge Control` contains two additional widgets, not described so far:
-* `Start NOW` enables charging immediatly (subject of other constraints of `PVOptimize`)
+* `Delayed charging` delays charging to the time `Charge Start` (further subject of other constraints of `PVOptimize`)
 * `Charge Start` sets a starting time for enabling charging. For this to work, `Start NOW` obviously needs be disabled. Once the time is reached, `Start NOW` is enabled - in other words, `Charge Start` expires after latest 24 hours.
 
 ## Installation
